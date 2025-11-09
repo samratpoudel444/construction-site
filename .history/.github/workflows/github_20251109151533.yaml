@@ -19,8 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '23.11.0'
-          cache: 'npm'
+          node-version: 
 
       - name: Install & Build
         run: |
