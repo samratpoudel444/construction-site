@@ -1,0 +1,17 @@
+name: Full CI/CD
+
+on:
+  push:
+    branches:
+        -main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project:[frontend,backend]
+  
+  steps:
+    -name: Checkout code
+     uses: actions/checkout@v3

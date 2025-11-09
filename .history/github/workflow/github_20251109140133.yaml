@@ -1,0 +1,9 @@
+name: Full CI/CD
+
+on:
+  push:
+    branches:
+        -main
+
+jobs:
+  build

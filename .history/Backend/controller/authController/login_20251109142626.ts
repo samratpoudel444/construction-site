@@ -1,0 +1,9 @@
+import type{ Request, Response, NextFunction, RequestHandler } from "express";
+
+
+const Login: any= async(req:Request, res:Response, next:NextFunction)=>
+{
+
+}
+
+export default Login;
