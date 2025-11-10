@@ -33,6 +33,7 @@ User.init(
   {
     id: {
       type: DataTypes.STRING,
+      autoIncrement: true,
       primaryKey: true,
     },
     username: {

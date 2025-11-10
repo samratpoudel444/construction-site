@@ -1,6 +1,6 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database.ts";
-import type { Optional } from "sequelize";
+
 
 interface UserAttributes {
   id: string;
@@ -33,6 +33,7 @@ User.init(
   {
     id: {
       type: DataTypes.STRING,
+      autoIncrement: true,
       primaryKey: true,
     },
     username: {
