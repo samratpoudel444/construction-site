@@ -1,4 +1,6 @@
-import { AppError } from "../utils/AppError";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const AppError_1 = require("../utils/AppError");
 const Login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -7,7 +9,7 @@ const Login = async (req, res, next) => {
         }
     }
     catch (error) {
-        if (error instanceof AppError) {
+        if (error instanceof AppError_1.AppError) {
             return next({
                 code: error.code,
                 message: error.message || "Internal Server Error",
@@ -25,4 +27,4 @@ const Login = async (req, res, next) => {
         });
     }
 };
-export default Login;
+exports.default = Login;

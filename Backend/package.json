@@ -1,11 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
+  "main": "dist/index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node --esm index.ts",
+    "dev": "ts-node src/index.ts",
     "build": "tsc"
   },
   "keywords": [],
@@ -33,7 +33,6 @@
   "dependencies": {
     "bcrypt": "^6.0.0",
     "mysql2": "^3.15.3",
-    "sequelize": "^6.37.7",
-    "sequelize-typescript": "^2.1.6"
+    "sequelize": "^6.37.7"
   }
 }
