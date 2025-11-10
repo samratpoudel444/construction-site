@@ -1,0 +1,4 @@
+
+interface UserAttributes{
+    id: number
+}

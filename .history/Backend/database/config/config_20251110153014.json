@@ -1,0 +1,44 @@
+{
+  "development": {
+    "username": "avnadmin",
+    "password": "AVNS_IbyTukk7GW0LSCHxWZI",
+    "database": "defaultdb",
+    "host": "14654",
+    "dialect": "mysql",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      },
+      "family": 4
+    }
+  },
+  "test": {
+    "username": "avnadmin",
+    "password": "AVNS_IbyTukk7GW0LSCHxWZI",
+    "database": "defaultdb",
+    "host": "14654",
+    "dialect": "mysql",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      },
+      "family": 4
+    }
+  },
+  "production": {
+    "username": "avnadmin",
+    "password": "AVNS_IbyTukk7GW0LSCHxWZI",
+    "database": "defaultdb",
+    "host": "14654",
+    "dialect": "mysql",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      },
+      "family": 4
+    }
+  }
+}
