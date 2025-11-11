@@ -32,18 +32,17 @@ User.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    last: {
+    lastName: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     createdAt: {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false,
-        defaultValue: sequelize_1.DataTypes.NOW,
+        defaultValue: database_1.default.fn("Now"),
     },
     updatedAt: {
         type: sequelize_1.DataTypes.DATE,
-        allowNull: false,
         defaultValue: sequelize_1.DataTypes.NOW,
     },
 }, {

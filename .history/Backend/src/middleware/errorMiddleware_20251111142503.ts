@@ -1,0 +1,1 @@
+const errMiddleware= (req, res, nexr)

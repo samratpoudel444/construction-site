@@ -12,13 +12,4 @@ const sequelize = new sequelize_1.Sequelize("defaultdb", "avnadmin", "AVNS_IbyTu
         },
     },
 });
-(async () => {
-    try {
-        await sequelize.authenticate();
-        console.log("Connected to Database sucessfully");
-    }
-    catch (err) {
-        console.log("Error Occured while connecting", err);
-    }
-})();
 exports.default = sequelize;
