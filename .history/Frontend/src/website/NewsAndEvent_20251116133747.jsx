@@ -1,0 +1,6 @@
+const NewsAndEvent= ()=>
+{
+    return(
+        
+    )
+}

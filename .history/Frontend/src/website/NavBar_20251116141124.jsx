@@ -1,0 +1,46 @@
+import logo from "./../assets/pngtree-building-and-construction-logo-design-template-with-wave-sign-dark-blue-png-image_5137679.jpg";
+
+const NavBar= ()=>
+{
+    const navItems = [
+      {
+        name: "Home",
+        link: "",
+      },
+      {
+        name: "About Us",
+        link: "",
+      },
+      {
+        name: "Projects",
+        link: "",
+      },
+      {
+        name: "Gallery",
+        link: "",
+      },
+      {
+        name: "Login",
+        link: "",
+      },
+    ];
+    return (
+      <div className="w-screen flex flex-row justify-between items-center pr-16 fixed">
+        <div className="flex flex-row items-center ">
+          <img src={logo} alt="" className="h-40" />
+          <div className="flex flex-col text-md font-semibold">
+            <h1 className="text-center">Indrakshi Divya </h1>
+            <h1 className="text-blue-800">Construction PVT.LTD </h1>
+          </div>
+        </div>
+        <div className="flex gap-16 text-xl font-semibold sm:hidden">
+            {navItems.map((item, index)=>
+            (
+                <a key={index} href={item.link} className="hover:text-blue-400">{item.name}</a>
+            ))}
+        </div>
+      </div>
+    );
+}
+
+export default NavBar;
