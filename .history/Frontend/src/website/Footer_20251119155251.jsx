@@ -1,0 +1,18 @@
+import logo from "./../assets/logo.png";
+const Footer = () => {
+  return (
+    <div className="sm:p-8 p-4 flex flex-col">
+      <div className="flex flex-row justify-center items-center">
+        <img src={logo} alt="" className="w-32" />
+        <h1>
+          {" "}
+          Indraakshi Divya Construction <br />& Development Pvt. Ltd.
+        </h1>
+      </div>
+      <div>Dhunibesu-7,Dhading</div>
+    </div>
+  );
+  
+};
+
+export default Footer;
