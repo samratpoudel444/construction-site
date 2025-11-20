@@ -10,11 +10,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-
-        <Route path="/admin" element={<AdminSidebar />}>
-            
-        </Route>
       </Routes>
+
     </Router>
   );
 }

@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./website/HomePage";
-import AdminSidebar from "./admin/AdminSideBar";
-AdminSidebar
+Ad
 
 function App() {
   
@@ -10,11 +9,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-
-        <Route path="/admin" element={<AdminSidebar />}>
-            
-        </Route>
       </Routes>
+
     </Router>
   );
 }

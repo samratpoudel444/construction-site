@@ -11,8 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
 
-        <Route path="/admin" element={<AdminSidebar />}>
-            
+        <Route path="/" element={<AdminSidebar />}>
+        
         </Route>
       </Routes>
     </Router>
