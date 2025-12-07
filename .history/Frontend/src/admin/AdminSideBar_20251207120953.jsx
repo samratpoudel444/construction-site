@@ -13,12 +13,13 @@ const sidebarItems = [
 const AdminSidebar = () => {
   return (
     <div className="flex flex-col justify-between h-screen w-72 bg-blue-500 fixed">
-
+      {/* Logo */}
       <div className="flex items-center gap-2 border-b-2 border-amber-50 p-4">
         <img src={image} alt="logo" className="w-1/2" />
         <h1 className="text-2xl text-white font-bold">IDCD</h1>
       </div>
 
+      {/* Menu */}
       <div className="text-xl text-white font-semibold mt-8 flex flex-col items-center gap-4">
         {sidebarItems.map((item, index) => (
           <NavLink
@@ -40,6 +41,7 @@ const AdminSidebar = () => {
         ))}
       </div>
 
+      {/* Footer */}
       <div className="border-t-2 border-amber-50 p-4">
         <div className="flex items-center gap-2 justify-center hover:scale-105 transition text-white text-xl">
           <img src={image} alt="user" className="w-1/4" />

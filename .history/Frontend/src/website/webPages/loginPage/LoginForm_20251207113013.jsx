@@ -88,7 +88,7 @@ const LoginForm = () => {
         </form>
 
         <div className="mt-8">
-          Didnt have account?  <a className="text-blue-500">Sign Up here</a> 
+          Didnt have account? <a className="text-blue-500">Sign Up here</a> 
         </div>
       </div>
     </div>

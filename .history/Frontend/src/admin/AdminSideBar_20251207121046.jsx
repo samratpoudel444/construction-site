@@ -13,7 +13,7 @@ const sidebarItems = [
 const AdminSidebar = () => {
   return (
     <div className="flex flex-col justify-between h-screen w-72 bg-blue-500 fixed">
-
+      {/* Logo */}
       <div className="flex items-center gap-2 border-b-2 border-amber-50 p-4">
         <img src={image} alt="logo" className="w-1/2" />
         <h1 className="text-2xl text-white font-bold">IDCD</h1>

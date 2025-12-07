@@ -20,7 +20,7 @@ function App() {
         <Route path="/gallery" element={<GalleryPage />}></Route>
         <Route path="/Login" element={<LoginPage />}></Route>
         <Route path="/admin" element={<AdminSidebar />}>
-        </Route>
+        <Rou></Rou></Route>
       </Routes>
     </Router>
   );

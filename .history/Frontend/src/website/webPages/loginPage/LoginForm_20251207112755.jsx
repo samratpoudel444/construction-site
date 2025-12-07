@@ -49,6 +49,7 @@ const LoginForm = () => {
             Login
           </h1>
 
+      
           <div className="flex flex-col gap-2">
             <label className="text-gray-700 font-medium">Email</label>
             <input
@@ -63,6 +64,7 @@ const LoginForm = () => {
               <p className="text-red-500 text-sm">{errors.email}</p>
             )}
           </div>
+
 
           <div className="flex flex-col gap-2">
             <label className="text-gray-700 font-medium">Password</label>
@@ -79,6 +81,7 @@ const LoginForm = () => {
             )}
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             className="mt-4 bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 transition duration-300"
@@ -86,10 +89,6 @@ const LoginForm = () => {
             Login
           </button>
         </form>
-
-        <div className="mt-8">
-          Didnt have account?  <a className="text-blue-500">Sign Up here</a> 
-        </div>
       </div>
     </div>
   );
