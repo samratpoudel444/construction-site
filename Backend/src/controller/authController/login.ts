@@ -19,7 +19,6 @@ const Login: RequestHandler = async (
 
     const query = `SELECT id, email, password FROM users WHERE email = :email`;
 
-    // FIX: sequelize.query returns [results, metadata]
     const [results] = await sequelize.query(query, {
       replacements: { email },
       raw: true,

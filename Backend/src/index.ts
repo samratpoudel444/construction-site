@@ -16,6 +16,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
  initDatabase();
+ console.log(sequelize)
 
 app.use("/api/v1", authRoute);
 
