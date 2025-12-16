@@ -1,7 +1,0 @@
-our
-const HomePage= ()=>
-{
-    return(
-
-    )
-}

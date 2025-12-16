@@ -1,6 +1,0 @@
-const ourActivities= ()=>
-{
-    return(
-        
-    )
-}

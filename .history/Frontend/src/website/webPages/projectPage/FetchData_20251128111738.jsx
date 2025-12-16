@@ -1,6 +1,0 @@
-const FetchData= ({selectedButton})=>
-{
-    return(
-        
-    )
-}

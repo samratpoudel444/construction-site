@@ -1,6 +1,0 @@
-const ourProjects= ()=>
-[
-    return(
-       
-    )
-]

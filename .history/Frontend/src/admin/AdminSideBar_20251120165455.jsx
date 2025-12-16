@@ -1,6 +1,0 @@
-const AdminSidebar= ()=>
-{
-    return{
-        
-    }
-}

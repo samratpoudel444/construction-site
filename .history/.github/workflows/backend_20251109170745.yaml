@@ -1,8 +1,0 @@
-name: Backend CI/CD
-
-on
-
-jobs:
-
-
-runs-on: ubuntu-latest

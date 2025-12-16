@@ -1,5 +1,0 @@
-export class AppError extends Error{
-    code: number;
-
-    constructor(message)
-}

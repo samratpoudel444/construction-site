@@ -1,6 +1,0 @@
-const chartData= ()=>
-{
-    return(
-        <></>
-    )
-}

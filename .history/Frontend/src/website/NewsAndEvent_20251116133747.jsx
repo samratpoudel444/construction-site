@@ -1,6 +1,0 @@
-const NewsAndEvent= ()=>
-{
-    return(
-        
-    )
-}
