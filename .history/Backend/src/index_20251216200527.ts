@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import errMiddleware from "./middleware/errorMiddleware";
 import authRoute from "./routes/authRoute";
 import client from "./helpers/RedisHelper";
-import sequelize from "./database/config/database";
 
 
 

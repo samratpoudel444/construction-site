@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "",
+    "database": "IDCD",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+    
+  },
+  "test": {
+    "username": "postgres",
+    "password": "",
+    "database": "IDCD",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "",
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

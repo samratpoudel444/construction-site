@@ -1,10 +1,9 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
- import initDatabase from "./database/config/dbInit";
+// import initDatabase from "./database/config/dbInit";
 import errMiddleware from "./middleware/errorMiddleware";
 import authRoute from "./routes/authRoute";
 import client from "./helpers/RedisHelper";
-import sequelize from "./database/config/database";
 
 
 
@@ -15,10 +14,15 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
- initDatabase();
+initDatabase();
 
 app.use("/api/v1", authRoute);
-
+const test= async()=>
+{
+  await client.set("name","rame")
+  console.log(client.get("name"))
+}
+test()
 app.use(errMiddleware);
 
 
