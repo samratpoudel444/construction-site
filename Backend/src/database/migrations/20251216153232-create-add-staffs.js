@@ -2,30 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('AddStaffs', {
+    await queryInterface.createTable("AddStaffs", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       StaffName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       StaffImage: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       StaffRole: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("NOW"),
       },
       updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+        onUpdate: Sequelize.NOW,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
