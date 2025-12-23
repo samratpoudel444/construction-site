@@ -71,9 +71,8 @@ const AddStaffs = () => {
               name="staffRole"
               value={formData.staffRole}
               onChange={handleChange}
-              rows="4"
               className="sm:col-span-2 border rounded-xl p-3 resize-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Write about the project..."
+              placeholder="Role of staff eg:engineer or ....."
             />
           </div>
 

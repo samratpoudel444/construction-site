@@ -35,7 +35,7 @@ const addImage: RequestHandler = async(
 
        const query = `INSERT INTO "ImageTables" ( "ProjectName", "ProjectImage")VALUES ( :imageTitle, :url)`;
         
-        const [_,insertData]= await sequelize.query(query,{
+        const [_,insertData]:any= await sequelize.query(query,{
             raw:true,
             replacements:{
                 url:url, 
@@ -43,8 +43,9 @@ const addImage: RequestHandler = async(
             }
         })
 
-       
-            return res.status(201).json({message:"Image Inserted Sucessfully"})
+       if (insertData.affectedRows === 1) {
+         return res.status(201).json({ message: "Image Inserted Sucessfully" });
+       }
     
     }
     catch(err)

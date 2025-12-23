@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 import initDatabase from "./database/config/dbInit";
 import errMiddleware from "./middleware/errorMiddleware";
 import authRoute from "./routes/authRoute";
-import client from "./helpers/RedisHelper";
-import sequelize from "./database/config/database";
 import imageRouter from "./routes/imageGalleryRoute";
 import cors from "cors";
+import projectRouter from "./routes/projectRoute";
+
 
 dotenv.config();
 
@@ -33,6 +33,7 @@ initDatabase();
 
 app.use("/api/v1", authRoute);
 app.use("/api/v1", imageRouter);
+app.use("/api/v1", projectRouter);
 
 app.use(errMiddleware);
 
