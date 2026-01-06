@@ -1,19 +1,21 @@
 import image from "../assets/3.jpg"
+import image2 from "../assets/1.webp";
+import image3 from "../assets/4.avif";
 import {Link} from "react-router-dom"
 const news = [
   {
-    Image: image,
-    Title: "hello k xa ho testing ho hae",
+    Image: image2,
+    Title: "Land Leveling",
     Date: "2020-10-20",
   },
   {
     Image: image,
-    Title: "hello k xa ho testing ho hae",
+    Title: "Residence Concreting",
     Date: "2020-10-20",
   },
   {
-    Image: image,
-    Title: "hello k xa ho testing ho hae",
+    Image: image3,
+    Title: "Designing of Building",
     Date: "2020-10-20",
   },
 ];

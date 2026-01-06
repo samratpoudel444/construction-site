@@ -1,37 +1,44 @@
 import img3 from "../assets/4.avif";
+import image from "../assets/3.jpg";
+import image2 from "../assets/1.webp";
+import img4 from "../assets/build.jpg";
+import image5 from "../assets/concreting.jpg";
+import image6 from "../assets/sidewalk.webp";
+import img7 from "../assets/road.jpg";
+
 import { Link } from "react-router-dom";
 const data = [
   {
     image: img3,
-    name: "Hello tesing site",
+    name: "Architecture Design for R&D Complex",
   },
   {
-    image: img3,
+    image: image,
+    name: "Concreting in personal resident",
+  }, 
+  {
+    image: image2,
+    name: "Land Filling in Malekhu",
+  },
+  {
+    image: img4,
     name: "Tesing site of renovation",
   },
   {
-    image: img3,
-    name: "Tesing site of renovation",
+    image: image5,
+    name: "Concreting in Scout, lazimpat",
+  },
+  {
+    image: image6,
+    name: "Kalimati sideways paving",
+  },
+  {
+    image: img7,
+    name: "Road Construction Naubise",
   },
   {
     image: img3,
-    name: "Tesing site of renovation",
-  },
-  {
-    image: img3,
-    name: "Tesing site of renovation",
-  },
-  {
-    image: img3,
-    name: "Tesing site of renovation",
-  },
-  {
-    image: img3,
-    name: "Tesing site of renovation",
-  },
-  {
-    image: img3,
-    name: "Tesing site of renovation",
+    name: "Architecture solution for Xavier college",
   },
 ];
 
@@ -48,7 +55,7 @@ const OurProjects = () => {
         {data.map((value, index) => (
           <div
             key={index}
-            className="w-[95%] h-full relative hover:transition hover:scale-110 duration-300"
+            className="w-[95%] h-64 relative hover:transition hover:scale-110 duration-300"
           >
             <img
               src={value.image}

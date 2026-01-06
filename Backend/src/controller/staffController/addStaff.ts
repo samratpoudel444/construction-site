@@ -8,14 +8,16 @@ import sequelize from "../../database/config/database";
 export const addStaff:RequestHandler = async(req:Request, res:Response, next:NextFunction)=>
 {
     try{
+      
         const {staffName, staffRole}= req.body as addStaffRequest;
+         if (!staffName || !staffRole) {
+           return next(new AppError("please provide the staff Data", 400));
+         }
         if(!req.file)
         {
             return next(new AppError("please provide the staff Image", 400))
         }
-        if ((!staffName ||  !staffRole)) {
-          return next(new AppError("please provide the staff Image", 400));
-        }
+       
 
         const uploadImage= await cloudinary.uploader.upload(req.file.path,
             {
@@ -32,14 +34,14 @@ export const addStaff:RequestHandler = async(req:Request, res:Response, next:Nex
         }
 
         const query =
-          "insert into AddStaffs ( StaffName , StaffImage, StaffRole) values(:StaffName , :url ,:StaffRole)";
+          `insert into "AddStaffs" ( "StaffName", "StaffImage", "StaffRole") values(:staffName , :url ,:staffRole)`;
 
           const [_, insertData] = await sequelize.query(query, {
             raw: true,
             replacements: {
-              StaffName: staffName,
-              StaffImage: url,
-              StaffRole: staffRole,
+               staffName,
+               url,
+               staffRole,
             },
           });
 
@@ -47,6 +49,7 @@ export const addStaff:RequestHandler = async(req:Request, res:Response, next:Nex
     }
     catch(err)
     {
+      console.log(err)
          const error = err as AppError;
                 return next({code:error.code || 500, message:error.message||"Internal Server error"})
     }

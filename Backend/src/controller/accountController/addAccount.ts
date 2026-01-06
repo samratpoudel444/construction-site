@@ -11,10 +11,11 @@ const addAccount: RequestHandler = async (
   next: NextFunction
 ) => {
   try {
-    const { FirstName, LastName, Email, Password, Gender, Role } =
-      req.body as createUserRequest;
+    console.log("the req body ",req.body)
+    const { firstName, lastName, email, password, gender, role } =
+      req.body as createUserRequest
 
-    if (!FirstName || !LastName || !Email || !Password || !Gender || !Role) {
+    if (!firstName || lastName || !email || !password || !gender || !role) {
       return next(new AppError("Please provide all required fields", 400));
     }
 
@@ -35,18 +36,18 @@ const addAccount: RequestHandler = async (
       INSERT INTO Users
       (FirstName, LastName, Email, Password, Gender, Role, userImages)
       VALUES
-      (:FirstName, :LastName, :Email, :Password, :Gender, :Role, :userImageUrl)
+      (:firstName, :lastName, :Email, :Password, :Gender, :Role, :userImageUrl)
     `;
 
   
     const [_, metadata] = await sequelize.query(query, {
       replacements: {
-        FirstName,
-        LastName,
-        Email,
-        Password,
-        Gender,
-        Role,
+        firstName,
+        lastName,
+        email,
+        password,
+        gender,
+        role,
         userImageUrl,
       },
     });
@@ -54,6 +55,7 @@ const addAccount: RequestHandler = async (
     return res.status(201).json({ message: "User inserted successfully" });
   } catch (err) {
     const error = err as AppError;
+    console.log(error)
     return next({
       code: error.code || 500,
       message: error.message || "Internal Server Error",

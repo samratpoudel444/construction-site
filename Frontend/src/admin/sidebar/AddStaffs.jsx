@@ -1,11 +1,48 @@
 import { useState } from "react";
+import { useMutation,useQueryClient } from "@tanstack/react-query";
+import { axiosInstance } from "../../utils/apiInstance";
+import { ToastContainer,toast } from "react-toastify";
 
 const AddStaffs = () => {
+  const queryClient= useQueryClient()
   const [formData, setFormData] = useState({
     staffName: "",
     staffImage: null,
     staffRole: "",
   });
+
+  const uploadStaffs=async()=>
+  {
+    try{
+      const response = await axiosInstance.post("/addStaff", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response
+    }
+    catch(err)
+    {
+      throw err.response
+    }
+  }
+
+  const staffMutation = useMutation({
+    mutationFn:uploadStaffs,
+    onSuccess: (response)=> {queryClient.invalidateQueries({queryKey:['staffs']})
+          console.log(response)
+          toast.success(response.data.message || "Data Inserted Sucessfully");
+          setFormData({
+            staffName: "",
+            staffImage: null,
+            staffRole: "",
+          });
+  },
+  onError:(err)=>
+  {
+    toast.error(err?.data.message || "Error uploading data")
+  }
+  })
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -17,8 +54,7 @@ const AddStaffs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    window.alert("Staff Added");
+    staffMutation.mutate(formData)
   };
 
   return (
@@ -80,9 +116,11 @@ const AddStaffs = () => {
           <div className="flex justify-center pt-4">
             <button
               type="submit"
+              disabled={staffMutation.isPending}
               className="w-full sm:w-auto bg-blue-600 text-white
                          px-10 py-3 rounded-xl font-semibold
-                         hover:bg-blue-700 transition"
+                         hover:bg-blue-700 transition
+                         disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
               Add Project
             </button>

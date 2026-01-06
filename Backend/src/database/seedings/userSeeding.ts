@@ -27,7 +27,11 @@ const seedUsers= async():Promise<void>=>
             }
         ]
 
-        const query = `insert Into users (id, username,email,password,firstName, lastName) values (:id, :username,:email,:password,:firstName, :lastName)`;
+        const query = `INSERT INTO "users"
+      ("id", "username", "email", "password", "firstName", "lastName", "createdAt", "updatedAt")
+      VALUES
+      (:id, :username, :email, :password, :firstName, :lastName, NOW(), NOW())
+    `;
         
         await sequelize.query(query, {
           replacements: {

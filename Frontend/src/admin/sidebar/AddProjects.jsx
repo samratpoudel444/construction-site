@@ -1,12 +1,53 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { axiosInstance } from "../../utils/apiInstance";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProjects = () => {
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     projectName: "",
     projectInterval: "",
     projectStatus: "",
     projectImage: null,
     projectDescription: "",
+  });
+
+  // Upload function
+  const uploadData = async (data) => {
+    const formPayload = new FormData();
+    formPayload.append("projectName", data.projectName);
+    formPayload.append("projectInterval", data.projectInterval);
+    formPayload.append("projectStatus", data.projectStatus);
+    formPayload.append("projectImage", data.projectImage);
+    formPayload.append("projectDescription", data.projectDescription);
+
+    try {
+      const response = await axiosInstance.post("/addProject", formPayload, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return response.data;
+    } catch (err) {
+      console.log("The error is", err.response?.data || err);
+      throw err.response?.data || err;
+    }
+  };
+
+  const addProjectMutation = useMutation({
+    mutationFn: uploadData,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["project"] });
+      toast.success("Project added successfully!");
+      setFormData({
+        projectName: "",
+        projectInterval: "",
+        projectStatus: "",
+        projectImage: null,
+        projectDescription: "",
+      });
+    },
+    onError: (err) => toast.error(err?.message || "Something went wrong"),
   });
 
   const handleChange = (e) => {
@@ -19,25 +60,22 @@ const AddProjects = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    window.alert("Project Added");
+    addProjectMutation.mutate(formData);
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 ">
-      {/* Header */}
+    <div className="w-full min-h-screen bg-gray-100">
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="h-20 sm:h-24 bg-white shadow-sm flex items-center justify-center">
         <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
           Add Projects
         </h1>
       </div>
 
-      {/* Form */}
       <div className="flex justify-center mt-6 sm:mt-12">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-3xl bg-white rounded-2xl shadow-md
-                     p-4 sm:p-8 md:p-12 flex flex-col gap-6 sm:gap-8"
+          className="w-full max-w-3xl bg-white rounded-2xl shadow-md p-4 sm:p-8 md:p-12 flex flex-col gap-6 sm:gap-8"
         >
           {/* Project Name */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -70,7 +108,6 @@ const AddProjects = () => {
             <label className="font-semibold text-gray-700">
               Project Status
             </label>
-
             <div className="sm:col-span-2 flex flex-wrap gap-4">
               {["Completed", "Running", "Pending"].map((status) => (
                 <label
@@ -123,9 +160,17 @@ const AddProjects = () => {
           <div className="flex justify-center pt-4">
             <button
               type="submit"
-              className="w-full sm:w-auto bg-blue-600 text-white
-                         px-10 py-3 rounded-xl font-semibold
-                         hover:bg-blue-700 transition"
+              className="
+      w-full sm:w-auto
+      bg-blue-600 text-white
+      px-10 py-3
+      rounded-xl font-semibold
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      active:bg-blue-800 active:shadow-inner
+      focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2
+      transition duration-200 ease-in-out
+    "
             >
               Add Project
             </button>

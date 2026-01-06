@@ -47,7 +47,7 @@ const Login: RequestHandler = async (
     return res.status(200).json({
       status: "success",
       message: "Login successful",
-      token
+      token,
     });
   } catch (error: any) {
     console.error("Login error:", error);

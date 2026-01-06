@@ -22,7 +22,7 @@ export interface ProjectRequestBody {
   projectInterval: string;
   projectStatus: ProjectStatus;
   projectImage: string;
-  description: Text;
+  projectDescription: Text;
 }
 
 export interface addStaffRequest {
@@ -38,6 +38,12 @@ export interface addEventRequest {
   eventDescription: string;
 }
 
+export interface EventData {
+  id: string;
+  EventName: string;
+  EventImage: string;
+  EventDescription: string;
+}
 
 export enum Gender {
   Male = "Male",
@@ -52,11 +58,20 @@ export enum Role {
 
 export interface createUserRequest {
   id: string;
-  FirstName: string;
-  LastName: string;
-  Email: string;
-  Password: string;
-  Gender: Gender;
-  Role: Role;
-  UserImage: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  gender: Gender;
+  role: Role;
+}
+
+export interface UpdateData {
+  message: string;
+  affectedRow: Number;
+}
+
+export interface DeleteData {
+  message: string;
+  affectedRow: Number;
 }

@@ -1,6 +1,11 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { axiosInstance } from "../../utils/apiInstance";
+import { ToastContainer,toast } from "react-toastify";
+
 
 const CreateAccount = () => {
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,10 +24,41 @@ const CreateAccount = () => {
     }));
   };
 
+  const uplaodData= async()=>
+  {
+    try{
+      const response = await axiosInstance.post("/addAccount", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      return response.data.message
+    }
+    catch(err)
+    {
+      throw err.response.data.message
+    }
+  }
+
+  const userMutation = useMutation({
+    mutationFn:uplaodData,
+    onSuccess:(response)=>{ queryClient.invalidateQueries({queryKey:['users']})
+      toast.success(response || "Data Inserted Sucessfully")
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        userImage: "",
+        gender: "",
+        role: "",
+      });
+    },
+    onError:(err)=> toast.error(err)
+  }
+  );
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    window.alert("User Created");
+    userMutation.mutate(formData)
   };
 
   return (
@@ -153,11 +189,13 @@ const CreateAccount = () => {
           <div className="flex justify-center pt-4">
             <button
               type="submit"
+              disabled={userMutation.isPending}
               className="w-full sm:w-auto bg-blue-600 text-white
                          px-10 py-3 rounded-xl font-semibold
-                         hover:bg-blue-700 transition"
+                         hover:bg-blue-700 transition
+                         disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              Add Project
+              Add Account
             </button>
           </div>
         </form>

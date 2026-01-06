@@ -12,8 +12,7 @@ const addEvents: RequestHandler = async (
   next: NextFunction
 ) => {
   try {
-    const { eventName, eventDescription } = req.body
-      .imageTitle as addEventRequest; ;
+    const { eventName, eventDescription } = req.body as addEventRequest; ;
     if ((!eventName || !eventDescription)) {
       return next(new AppError("Please provide the data", 400));
     }
@@ -29,19 +28,26 @@ const addEvents: RequestHandler = async (
 
     const url = storedImage.secure_url;
 
-    const query = `INSERT INTO "ImageTables" ( "EventName","EventImage", "EventDescription")VALUES ( :eventName, :url, :eventDescription)`;
 
-    const [_, insertData] = await sequelize.query(query, {
+    const query = `INSERT INTO "CreateEvents" ("EventName","EventImage", "EventDescription")VALUES ( :eventName, :url, :eventDescription)`;
+
+    const [_, updatedRow] = await sequelize.query(query, {
       raw: true,
       replacements: {
-        eventName:eventName,
-        eventImage: url,
-        eventDescription:eventDescription,
+        eventName,
+         url,
+        eventDescription,
       },
     });
 
-    return res.status(201).json({ message: "Events Inserted Sucessfully" });
+    if(updatedRow || updatedRow === 1)
+    {
+       return res.status(201).json({ message: "Events Inserted Sucessfully" });
+    }
+return next(new AppError("Error updating data in system", 400));
+   
   } catch (err) {
+    console.log(err)
     const error = err as AppError;
     return next({
       code: error.code || 500,

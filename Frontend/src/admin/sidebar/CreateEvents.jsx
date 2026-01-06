@@ -1,11 +1,48 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { axiosInstance } from "../../utils/apiInstance";
 
 const CreateEvent = () => {
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     eventName: "",
     eventImage: null,
     eventDescription: "",
   });
+
+  const uploadData= async()=>
+  {
+    try{
+      const response = await axiosInstance.post("/addEvent", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      return response
+    }
+    catch(err)
+    {
+      throw err.response
+    }
+  }
+
+  const eventMutation = useMutation({
+    mutationFn:uploadData,
+    onSuccess: (response)=>
+    {
+        queryClient.invalidateQueries({queryKey:["Event"]})
+        toast.success(response.data.message || "Event Inserted Sucessfully")
+        setFormData({
+          eventName: "",
+          eventImage: null,
+          eventDescription: "",
+        });
+    },
+    onError:(err)=>
+    {
+        toast.error(err.data.message)
+    }
+  })
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -17,8 +54,7 @@ const CreateEvent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    window.alert("event Added");
+   eventMutation.mutate(formData)
   };
 
   return (
@@ -49,7 +85,6 @@ const CreateEvent = () => {
             />
           </div>
 
-
           {/* Project Image */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <label className="font-semibold text-gray-700">Event Image</label>
@@ -67,7 +102,9 @@ const CreateEvent = () => {
 
           {/* Description */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            <label className="font-semibold text-gray-700">Event Description</label>
+            <label className="font-semibold text-gray-700">
+              Event Description
+            </label>
             <textarea
               name="eventDescription"
               value={formData.eventDescription}
@@ -82,11 +119,13 @@ const CreateEvent = () => {
           <div className="flex justify-center pt-4">
             <button
               type="submit"
+              disabled={eventMutation.isPending}
               className="w-full sm:w-auto bg-blue-600 text-white
                          px-10 py-3 rounded-xl font-semibold
-                         hover:bg-blue-700 transition"
+                         hover:bg-blue-700 transition
+                         disabled:bg-gray-400 disabled:cursor-not-allowed"
             >
-              Add Project
+              Add Event
             </button>
           </div>
         </form>
