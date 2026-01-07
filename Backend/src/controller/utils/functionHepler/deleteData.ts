@@ -11,17 +11,17 @@ const deleteData = async (query: string, id: number| string
       type: QueryTypes.UPDATE,
     })) as [unknown, number];
 
-    console.log(affectedRows);
-
-
+  
     if (!affectedRows || affectedRows === 0) {
       return {
+        data:data,
         message: "Unable to delete data or data unavilable",
         affectedRow: 0,
       };
     }
 
     return {
+      data:data,
       message: "Data deleted successfully",
       affectedRow:affectedRows,
     };

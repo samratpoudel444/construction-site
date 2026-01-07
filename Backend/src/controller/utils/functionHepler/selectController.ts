@@ -18,7 +18,6 @@ export const selectData = async <T extends object>(
     return results;
   } catch (err) {
     const error = err as AppError;
-    console.log(error);
     throw new AppError(
       error.message || "Internal Server Error",
       error.code || 500

@@ -11,6 +11,11 @@ import {
 import image from "../../assets/logo.png"
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../../utils/apiInstance";
+import { useQuery } from "@tanstack/react-query";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+
 const rows = [
   {
     id: 1,
@@ -30,13 +35,65 @@ const rows = [
 ];
 
 const ShowImages = () => {
+  const fetchData= async()=>
+  {
+      try{
+        const response = await axiosInstance.get("/showAllImages");
+        return response.data.message;
+      }
+      catch(err)
+      {
+        throw err.response.data.message
+      }
+  }
   const navigate = useNavigate();
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryFn: fetchData,
+    queryKey: ["Gallery"],
+    staleTime: 1000 * 60,
+  });
+
+ if (isLoading) {
+   return (
+     <div className="h-screen w-full flex justify-center items-center">
+       <Box sx={{ display: "flex" }}>
+         <CircularProgress />
+       </Box>
+     </div>
+   );
+ }
+
+ if (isError) {
+   return (
+     <div className="min-h-screen">
+       <div className="ml-8 mt-4 relative">
+         <button
+           className="flex items-center border-1 p-2 rounded-2xl border-blue-500 gap-2 text-blue-500 absolute"
+           onClick={() => navigate(-1)}
+         >
+           <FaArrowLeft /> Back
+         </button>
+       </div>
+
+       <div className="h-20 sm:h-24 bg-white shadow-sm flex items-center justify-center">
+         <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
+           Images lists
+         </h1>
+       </div>
+
+       <div className="text-red-400">{error}</div>
+     </div>
+   );
+ }
+
+
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="ml-8 mt-4 fixed">
+      <div className="ml-8 mt-4 relative">
         <button
-          className="flex items-center border-1 p-2 rounded-2xl border-blue-500 gap-2 text-blue-500"
+          className="flex items-center border-1 p-2 rounded-2xl border-blue-500 gap-2 text-blue-500 absolute"
           onClick={() => navigate(-1)}
         >
           <FaArrowLeft /> Back
@@ -66,18 +123,18 @@ const ShowImages = () => {
                     <b>Image</b>
                   </TableCell>
                   <TableCell>
-                    <b></b>
+                    <b>Action</b>
                   </TableCell>
                 </TableRow>
               </TableHead>
 
               <TableBody>
-                {rows.map((row) => (
+                {data.map((row, index) => (
                   <TableRow key={row.id} hover>
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.projectName}</TableCell>
+                    <TableCell>{index+1}</TableCell>
+                    <TableCell>{row.ProjectName}</TableCell>
                     <TableCell>
-                      <img src={row.projectImage} alt="" className="w-8" />
+                      <img src={row.ProjectImage} alt="" className="w-8" />
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-4">

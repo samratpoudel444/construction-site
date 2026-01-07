@@ -72,6 +72,23 @@ export interface UpdateData {
 }
 
 export interface DeleteData {
+  data?: unknown;
   message: string;
   affectedRow: Number;
+}
+
+export interface ImageUrl {
+  EventImage: string;
+}
+
+export interface GalleryUrl {
+  EventImage: string;
+}
+
+export interface ProjectUrl {
+  ProjectImage: string;
+}
+
+export interface staffUrl {
+  StaffImage: string;
 }

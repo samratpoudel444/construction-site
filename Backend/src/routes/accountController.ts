@@ -10,7 +10,7 @@ const accountRoute = Router();
 
 accountRoute.route("/addAccount").post(addAccount);
 accountRoute.route("/deleteAccount/:id").delete(deleteUser);
-accountRoute.route("/showAllAccount").delete(showAllUser);
+accountRoute.route("/showAllAccount").get(showAllUser);
 accountRoute.route("/showSpecificAccount/:id").get(showSpecificUser);
 
 export default accountRoute;

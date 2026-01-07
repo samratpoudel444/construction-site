@@ -15,7 +15,6 @@ export const selectSpecificData = async <T extends Object>(
       replacements: { id},
     });
 
-    console.log(results)
 
     if (!results || results.length === 0) {
       return [];
@@ -24,7 +23,6 @@ export const selectSpecificData = async <T extends Object>(
     }
   } catch (err) {
     const error = err as AppError;
-    console.log(error);
     throw new AppError(
       error.message || "Internal Server Error",
       error.code || 500

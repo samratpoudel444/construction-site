@@ -11,44 +11,82 @@ import {
 import image from "../../assets/logo.png"
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-const rows = [
-  {
-    id: 1,
-    projectName: "Portfolio Website",
-    status: "Completed",
-    interval: "Jan 2024 - Mar 2024",
-    projectImage: image,
-  },
-  {
-    id: 2,
-    projectName: "Admin Dashboard",
-    status: "Running",
-    interval: "Apr 2024 - Present",
-    projectImage: image,
-  },
-  {
-    id: 3,
-    projectName: "E-commerce App",
-    status: "Pending",
-    interval: "Upcoming",
-    projectImage: image,
-  },
-];
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import { useQuery } from "@tanstack/react-query";
+import { axiosInstance } from "../../utils/apiInstance";
+
 
 const ShowProjects = () => {
+
+  
 const navigate = useNavigate();
+  const fetchData= async()=>
+  {
+      try{
+        const response = await axiosInstance.get("/showAllProject");
+        return response.data.message;
+      }
+      catch(err)
+      {
+        throw err.response.data.message
+      }
+  }
+ 
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryFn: fetchData,
+    queryKey: ["project"],
+    staleTime: 1000 * 60,
+  });
+
+  console.log(error)
+ if (isLoading) {
+   return (
+     <div className="h-screen w-full flex justify-center items-center">
+       <Box sx={{ display: "flex" }}>
+         <CircularProgress />
+       </Box>
+     </div>
+   );
+ }
+
+ if (isError) {
+   return (
+     <div className="min-h-screen">
+       <div className="ml-8 mt-4 relative">
+         <button
+           className="flex items-center border-1 p-2 rounded-2xl border-blue-500 gap-2 text-blue-500 absolute"
+           onClick={() => navigate(-1)}
+         >
+           <FaArrowLeft /> Back
+         </button>
+       </div>
+
+       <div className="h-20 sm:h-24 bg-white shadow-sm flex items-center justify-center">
+         <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
+           Projects lists
+         </h1>
+       </div>
+
+       <div className="text-red-400">{error.message}</div>
+     </div>
+   );
+ }
+
   return (
     <div className="min-h-screen">
       {/* Header */}
-            <div className="ml-8 mt-4 fixed">
-             
-                <button className="flex items-center border-1 p-2 rounded-2xl border-blue-500 gap-2 text-blue-500" onClick={()=>(navigate(-1))}>
-                  <FaArrowLeft /> Back
-                </button>
-            </div>
+      <div className="ml-8 mt-4 fixed">
+        <button
+          className="flex items-center border-1 p-2 rounded-2xl border-blue-500 gap-2 text-blue-500"
+          onClick={() => navigate(-1)}
+        >
+          <FaArrowLeft /> Back
+        </button>
+      </div>
 
       <div className="h-20 sm:h-24 bg-white shadow-sm flex items-center justify-center">
-        
         <h1 className="text-2xl sm:text-3xl font-semibold text-gray-800">
           Projects
         </h1>
@@ -83,26 +121,26 @@ const navigate = useNavigate();
               </TableHead>
 
               <TableBody>
-                {rows.map((row) => (
+                {data.map((row, index) => (
                   <TableRow key={row.id} hover>
-                    <TableCell>{row.id}</TableCell>
-                    <TableCell>{row.projectName}</TableCell>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{row.ProjectName}</TableCell>
                     <TableCell>
                       <span
                         className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                          row.status === "Completed"
+                          row.ProjectStatus === "Completed"
                             ? "bg-green-100 text-green-700"
                             : row.status === "Running"
                             ? "bg-yellow-100 text-yellow-700"
                             : "bg-red-100 text-red-700"
                         }`}
                       >
-                        {row.status}
+                        {row.ProjectStatus}
                       </span>
                     </TableCell>
-                    <TableCell>{row.interval}</TableCell>
+                    <TableCell>{row.ProjectInterval}</TableCell>
                     <TableCell>
-                      <img src={row.projectImage} alt="" className="w-8" />
+                      <img src={row.ProjectImage} alt="" className="w-8" />
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-4">

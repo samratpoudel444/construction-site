@@ -1,6 +1,9 @@
 import { RequestHandler, NextFunction, Response, Request } from "express";
 import deleteData from "../utils/functionHepler/deleteData";
 import { AppError } from "../utils/AppError";
+import { selectSpecificData } from "../utils/functionHepler/selectSpecificData";
+import { GalleryUrl } from "../types";
+import { deleteCloudinaryImage } from "../utils/functionHepler/deleteCloudinaryImage";
 
 export const deleteImage: RequestHandler = async (
   req: Request,
@@ -9,6 +12,21 @@ export const deleteImage: RequestHandler = async (
 ) => {
   try {
     const id = req.params.id;
+
+     const selectQuery = `select "ProjectImage" from "ImageTables" WHERE id = :id;`;
+    
+        const urlData = (await selectSpecificData<GalleryUrl>(selectQuery, id)) || [];
+        const imageUrl = urlData[0]?.EventImage;
+        let result = true;
+        if (imageUrl) {
+          result = await deleteCloudinaryImage(imageUrl);
+        }
+    
+        if (!result) {
+          return next(new AppError("Error deleting image from Cloudinary", 400));
+        }
+    
+
     const query = `DELETE FROM "ImageTables" WHERE id = :id RETURNING ID;`;
     const data = await deleteData(query, id);
     if (data.affectedRow === 1) {

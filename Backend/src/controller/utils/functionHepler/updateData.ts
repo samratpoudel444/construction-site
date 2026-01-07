@@ -23,7 +23,6 @@ export const UpdateRecordData = async <T extends object>(
     return { message: "Data Unavilable", affectedRow };
   } catch (err) {
     const error = err as AppError;
-    console.log(error);
     throw new AppError(
       error.message || "Internal Server error",
       error.code || 500
